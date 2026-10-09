@@ -1,0 +1,45 @@
+# Companion code — MES-transition switch in IDH-wildtype glioblastoma (Paper 2)
+#
+# Versions recorded from the authors' analysis environment (September 2026), i.e.
+# the versions the analyses were actually run with. This is a version record, not
+# a frozen lockfile: the original virtualenv is no longer available, so reproduce
+# with these pins where possible and loosen them only if your platform requires it.
+#
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r env/requirements.txt
+#
+# Python 3.12 was used throughout.
+
+# --- core single-cell stack ---
+scanpy==1.12.3
+anndata==0.13.2
+numpy==2.3.5
+scipy==1.16.3
+pandas==2.3.3
+leidenalg==0.12.0
+igraph==1.0.0
+
+# --- cohort processing / integration ---
+harmonypy==2.0.0
+scrublet==0.2.3
+scvi-tools==1.5.0.post1
+scvelo==0.3.4
+infercnvpy==0.6.1
+gtfparse                       # GTF annotation parsing used by 02_integration_infercnv.py
+
+# --- regulon / TF-activity inference (prior-based) ---
+decoupler==2.2.0               # DoRothEA regulons, MLM
+
+# --- clinical survival analysis ---
+lifelines==0.30.3
+statsmodels>=0.14
+
+# --- plotting / tables ---
+matplotlib==3.11.1
+seaborn==0.13.2
+
+# --- Notes on packages NOT used by the released scripts ---
+# The paper additionally reports de-novo pySCENIC regulon inference and NicheNet
+# ligand-target modelling. Those analyses are not part of this release (see README
+# "What is not included"), so pyscenic / arboreto / loompy / nichenetr are
+# deliberately not pinned here.

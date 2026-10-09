@@ -1,0 +1,16 @@
+# Paper 2 — dataset & accession manifest (verified 2026-09-09/10)
+# Role: discovery / control / validation for the glioma MES-transition pipeline.
+# STATUS: FOUND = accession resolves on GEO and matches the intended cohort.
+#         TODO  = needs a later step (data download blocked by network throttle this session).
+dataset	accession	role	n_samples	pmid	status	notes
+GSE103224	GSE103224	Discovery + internal validation (10x, 8 samples)	8	30041684	DOWNLOADED	Local data; Steps 1-5 completed on this cohort.
+GSE131928	GSE131928	Discovery (Neftel 2019 GBM 4-state, Smart-seq2 + 10x)	28	31327527	DOWNLOADED	data/GSE131928_RAW.tar (per-sample TPM). Meta-module genes already obtained.
+GSE182109	GSE182109	Primary vs recurrence (Abdelfattah 2022)	44	35140215	DOWNLOADED	data/GSE182109_RAW.tar (Cell Ranger matrix.mtx per sample rGBM-01-A..).
+GSE70630	GSE70630	IDH-mut biological control (Venteicher 2017)	6	27806376	DOWNLOADED	data/GSE70630_OG_processed_data_v2.txt.gz (genes x cells, log-norm).
+GBM Visium	10.5061/dryad.h70rxwdmj	Space niche (Ravi 2022 Cancer Cell; 28 specimens, n=20, 88,793 spots)	>= 4	35140215	DOWNLOADED	Raw+processed @ Datadryad DOI 10.5061/dryad.h70rxwdmj; processed via github.com/theMILOlab/SPATAData; SPATA2 for staging. Also MALDI/IMC/850k methylation.
+Ivy GAP	(registration)	Anatomical bulk (LE/IT/CT/MVP/PAN)	41	-	TODO	Requires free registration & bulk download (blocked by network).
+TCGA-GBM/LGG	(portal)	Bulk validation cohort 1 (~700)	~700	-	TODO	GDC/TCGAbiolinks; needs data transfer + clinical fields.
+CGGA	(registration)	Bulk validation cohort 2 (~1018)	~1018	-	TODO	cgga.org.cn; needs registration.
+DoRothEA	(dorothea)	TF-target prior for regulon inference	32286 edges	-	FOUND	Fetched via decoupler/omnipath; cached to results/step05_regulon/dorothea_net.tsv.
+L1000/PRISM	(registration)	Drug repositioning signatures	-	-	TODO	clue.io / DepMap; needs accounts. Step 8.
+GENCODE v44	(gtf)	Gene biotype + genomic positions	-	-	FOUND	gencode.v44.basic.annotation.gtf.gz downloaded (data/raw/gencode) & used for inferCNV positions + gene-type filter.

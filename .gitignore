@@ -1,0 +1,32 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+
+# --- Data: never committed (see DATA_MANIFEST.md) ---
+data/
+Datasets/
+*.h5ad
+*.h5
+*.rds
+*.loom
+*.mtx.gz
+*.tar
+*.tar.gz
+*.tsv.gz
+*.csv.gz
+
+# --- Run artefacts ---
+results/
+logs/
+*.log
+
+# --- Reading copies of the docs (.docx rendered for the authors) ---
+*.docx
+
+# --- editors / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+.Rhistory
