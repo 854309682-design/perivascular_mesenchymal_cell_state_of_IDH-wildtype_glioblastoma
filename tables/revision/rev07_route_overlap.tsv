@@ -1,0 +1,2 @@
+prior_top30	denovo_top30	shared	shared_factors	prior_only	denovo_only	universe	odds_ratio	fisher_p_greater
+30	30	5	FOSL1, FOSL2, JUNB, NFIC, STAT1	25	25	686	5.05	0.007465895791105179

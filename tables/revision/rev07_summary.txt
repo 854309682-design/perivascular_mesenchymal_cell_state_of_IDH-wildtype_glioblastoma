@@ -1,0 +1,20 @@
+de-novo arm: cohorts analysed = ['GSE103224', 'GSE182109', 'Neftel_GSE131928']
+regulons per cohort: GSE103224=211, GSE182109=348, Neftel_GSE131928=470
+regulons NOT in the cisTarget TF list (would be artefacts): none
+CD59/TPI1 among ranked regulons: CD59=False, TPI1=True
+top-30 overlap with the prior route: 5/30 shared (FOSL1, FOSL2, JUNB, NFIC, STAT1); Fisher exact P = 0.00747
+top-10 de-novo regulons:
+    1. CEBPD      mean rho=+0.843  FDR<0.05 in 3/3 cohorts  TF=True
+    2. BATF3      mean rho=+0.822  FDR<0.05 in 1/1 cohorts  TF=True
+    3. EPAS1      mean rho=+0.818  FDR<0.05 in 3/3 cohorts  TF=True
+    4. FOSL2      mean rho=+0.811  FDR<0.05 in 3/3 cohorts  TF=True
+    5. CEBPB      mean rho=+0.790  FDR<0.05 in 2/2 cohorts  TF=True
+    6. NFIC       mean rho=+0.719  FDR<0.05 in 1/1 cohorts  TF=True
+    7. FOSL1      mean rho=+0.655  FDR<0.05 in 1/1 cohorts  TF=True
+    8. BHLHE40    mean rho=+0.648  FDR<0.05 in 2/2 cohorts  TF=True
+    9. ENO1       mean rho=+0.648  FDR<0.05 in 2/2 cohorts  TF=True
+   10. GADD45A    mean rho=+0.643  FDR<0.05 in 1/1 cohorts  TF=True
+TWIST1  prior rho=-0.204 (4.0 cohorts FDR<0.05) | de-novo rho=0.334 (2.0 cohorts) | DISAGREE
+CEBPB   prior rho=-0.122 (4.0 cohorts FDR<0.05) | de-novo rho=0.79 (2.0 cohorts) | DISAGREE
+CEBPD   prior rho=0.124 (3.0 cohorts FDR<0.05) | de-novo rho=0.843 (3.0 cohorts) | agree
+STAT3   prior rho=0.421 (4.0 cohorts FDR<0.05) | de-novo rho=0.443 (2.0 cohorts) | agree

@@ -1,0 +1,26 @@
+factor	prior_mean_rho	prior_n_fdr005_cohorts	denovo_mean_rho	denovo_n_fdr005_cohorts	denovo_is_cisTarget_TF	sign_agreement	denovo_rank
+TWIST1	-0.204	4.0	0.334	2.0	True	DISAGREE	65.0
+CEBPB	-0.122	4.0	0.79	2.0	True	DISAGREE	5.0
+CEBPD	0.124	3.0	0.843	3.0	True	agree	1.0
+CEBPA	0.067	4.0				na	
+FOSL1	0.369	4.0	0.655	1.0	True	agree	7.0
+FOSL2	0.235	4.0	0.811	3.0	True	agree	4.0
+JUN	0.064	4.0	0.533	3.0	True	agree	19.0
+JUNB	0.21	4.0	0.588	3.0	True	agree	13.0
+JUND	-0.201	4.0	0.218	3.0	True	DISAGREE	89.0
+STAT3	0.421	4.0	0.443	2.0	True	agree	38.0
+KLF4	0.36	4.0	0.142	2.0	True	agree	123.0
+RELA	-0.167	4.0	0.468	3.0	True	DISAGREE	32.0
+RELB	-0.007	3.0	0.506	2.0	True	DISAGREE	22.0
+NFKB1	0.233	3.0	0.11	1.0	True	agree	144.0
+BHLHE40	-0.063	3.0	0.648	2.0	True	DISAGREE	8.0
+ATF3	0.186	4.0	0.602	3.0	True	agree	12.0
+ATF4	0.267	4.0	0.26	3.0	True	agree	80.0
+HIF1A	0.366	4.0				na	
+TEAD1	0.057	4.0	0.019	0.0	True	agree	243.0
+TEAD4	-0.03	2.0	0.25	1.0	True	DISAGREE	83.0
+CD59						na	
+TPI1			0.564	1.0	True	na	16.0
+NPAS2						na	
+FOXC1						na	
+NFATC4			0.106	1.0	True	na	149.0

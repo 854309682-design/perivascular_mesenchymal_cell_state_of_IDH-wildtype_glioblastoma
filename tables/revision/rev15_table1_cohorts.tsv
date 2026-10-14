@@ -1,0 +1,6 @@
+cohort	platform	genotype	n_patients	n_malignant_cells	mean_MES_like	treatment_context	analyses
+GSE103224	10x Chromium	IDH-wildtype	8	20643	0.265	primary	discovery; four-state composition; pseudotime; prior + de-novo regulon; IDH arm
+GSE131928	Smart-seq2	IDH-wildtype	35	6701	0.216	primary	composition; prior + de-novo regulon; IDH arm
+GSE182109	10x Chromium	IDH-wildtype	16	142128	0.496	primary + recurrent (matched design)	composition; H1 recurrence; receptor expression; prior + de-novo regulon; IDH arm
+GSE70630	Smart-seq2	IDH-mutant	6	4082	0.002	primary	IDH-mutant control; composition; prior regulon; IDH arm
+GSE89567	Smart-seq2	IDH-mutant	10	5187	0.011	primary	IDH-mutant control; composition; IDH arm

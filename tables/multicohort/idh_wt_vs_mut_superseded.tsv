@@ -1,0 +1,2 @@
+comparison	n_IDHwt	n_IDHmut	MES_IDHwt_mean	MES_IDHmut_mean	MES_IDHwt_median	MES_IDHmut_median	mannwhitney_U	p	note
+IDH_wt_vs_IDH_mut_superseded	69	259	0.267	0.008	0.114	0.0	17288.5	1.6143562193578252e-57	superseded: GSE89567 pooled with barcode.split('_')[0], which splits MGH64-P16-A01 into one 'patient' per cell; reproduced by the same script via _legacy_reference()

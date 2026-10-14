@@ -1,0 +1,2 @@
+comparison	n_primary	n_recurrent	MES_prop_primary_mean	MES_prop_recurrent_mean	MES_prop_primary_median	MES_prop_recurrent_median	mannwhitney_U	p_alt_greater
+recurrent_rGBM_vs_primary_ndGBM	11	5	0.507	0.473	0.501	0.515	24.0	0.6694139194139194

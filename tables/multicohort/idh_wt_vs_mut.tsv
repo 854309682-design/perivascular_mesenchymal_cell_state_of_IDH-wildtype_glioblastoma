@@ -1,0 +1,2 @@
+comparison	n_IDHwt	n_IDHmut	MES_IDHwt_mean	MES_IDHmut_mean	MES_IDHwt_median	MES_IDHmut_median	mannwhitney_U	p
+IDH_wt_vs_IDH_mut	59	16	0.299	0.008	0.186	0.001	890.0	6.563118880014048e-08

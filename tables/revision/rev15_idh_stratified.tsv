@@ -1,0 +1,8 @@
+cohort	genotype	n_patients	mean_MES	median_MES	n_MES_gt_0.1	test	p	note
+GSE103224	IDH-wt	8	0.265	0.094	3.0	per_cohort_means		
+GSE182109	IDH-wt	16	0.496	0.508	16.0	per_cohort_means		
+GSE70630	IDH-mut	6	0.002	0.001	0.0	per_cohort_means		
+GSE89567	IDH-mut	10	0.011	0.004	0.0	per_cohort_means		
+Neftel_GSE131928	IDH-wt	35	0.216	0.157	22.0	per_cohort_means		
+ALL	IDH-wt vs IDH-mut	75	0.236		41.0	pooled_Mann_Whitney	6.563118880014048e-08	pooled over 5 cohorts; U = 890.0
+ALL	IDH-wt vs IDH-mut	75	0.0			cohort_mean_centred_Mann_Whitney	0.24702794427873698	genotype is perfectly confounded with cohort, so no within-cohort (van Elteren) test is identifiable; this test removes cohort shifts first; U = 382.0

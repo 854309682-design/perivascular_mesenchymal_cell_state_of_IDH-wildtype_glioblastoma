@@ -1,0 +1,2 @@
+comparison	n_primary	n_recurrent	mean_primary	mean_recurrent	median_primary	median_recurrent	mean_difference	mean_difference_95CI_boot	cliffs_delta	mannwhitney_U	p_two_sided	p_one_sided_greater	note
+recurrent rGBM vs primary ndGBM (patient-level MES fraction)	11	5	0.507	0.473	0.501	0.515	-0.034	[-0.354, 0.285]	-0.127	24.0	0.7426739926739928	0.6694139194139194	power-limited: with n=5 recurrent patients a two-sided MWU at alpha=0.05 has ~<30% power for the observed effect size; absence of evidence, not evidence of absence

@@ -1,0 +1,3 @@
+variant	patients	malignant_cells	mean_MES_prop
+as-shipped (2 platforms, mixed scale)	45	15809	0.185
+Smart-seq2 only (used)	35	6701	0.216

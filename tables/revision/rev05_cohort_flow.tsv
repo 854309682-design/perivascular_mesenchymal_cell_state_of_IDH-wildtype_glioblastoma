@@ -1,0 +1,15 @@
+cohort	step	n
+TCGA	STAR-count files on disk	925
+TCGA	files mapped to a GDC sample	925
+TCGA	unique patients (barcode prefix 12) with expression	809
+TCGA	cases merged with curated clinical (os_months/os_status)	743
+TCGA	XML-route cross-check: event agreement 0.781, time agreement(<=35d) 0.789 on n=356	356
+CGGA-325	samples with RSEM expression	325
+CGGA-325	clinical records	325
+CGGA-325	samples with both expression and clinical	325
+CGGA-693	samples with RSEM expression	693
+CGGA-693	clinical records	693
+CGGA-693	samples with both expression and clinical	693
+TCGA	final analysis set (event + time available)	737
+CGGA-325	final analysis set (event + time available)	313
+CGGA-693	final analysis set (event + time available)	657

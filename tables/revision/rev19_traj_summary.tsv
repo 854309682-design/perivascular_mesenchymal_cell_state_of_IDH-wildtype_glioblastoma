@@ -1,0 +1,4 @@
+cohort	n_cells	n_samples	rho_pooled	rho_median_per_sample	n_samples_rho_pos	n_samples_rho_gt_0_3	source
+GSE103224	20643	8	0.5092345845274125	0.5052477118437786	8	6	shipped step04 axis (gse103224_traj.h5ad)
+GSE182109	142128	18	0.22451627772334817	0.019533898738050476	10	1	rev19 (Neftel ss2)
+Neftel	6701	33	0.03919754909657637	0.06295370571614867	21	7	rev19 (Neftel ss2)

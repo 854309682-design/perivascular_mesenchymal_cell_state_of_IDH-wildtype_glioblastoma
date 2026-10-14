@@ -1,0 +1,4 @@
+cohort	n_patients	events	median_followup	age_median	grade_known	gbm_like	idh_known	mes_range	logrank_p
+TCGA	737	278	374.38125	50	737	286	737	-1.78 to 1.75	4.44089209850063e-16
+CGGA-325	313	218	705	42	309	137	313	-1 to 1.86	0
+CGGA-693	657	394	866	43	657	237	657	-2.23 to 1.7	0
