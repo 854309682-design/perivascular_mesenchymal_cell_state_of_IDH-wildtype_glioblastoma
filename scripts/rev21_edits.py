@@ -547,6 +547,92 @@ def build():
          + " in decile " + str(npc_bin) + ")."),
     ]))
 
+    # ==========================================================================================
+    # Second-round corrections (2026-10-15): internal contradictions left by the first text pass
+    # and the two reviewer items that need no new analysis.
+    # ==========================================================================================
+
+    # (1) the §3.5 heading still advertised the submitted perivascular claim while its own text
+    #     reports the corrected peri-necrotic result (review C3/M3)
+    E.append(("para", "55C42D3F",
+              "The MES program localizes to the pseudopalisading/peri-necrotic compartment"))
+
+    # (2) the same paragraph ends on a sentence that contradicts its own preceding sentence
+    #     ("...the MES programme is not perivascular. It is highest in the pseudopalisading/
+    #     peri-necrotic compartment... The niche is perivascular/angiogenic, not peri-necrotic.")
+    #     The emphasised run in the middle is preserved.
+    E.append(("sub", "441088FC", "The niche is ",
+              "The niche is therefore best described as peri-necrotic, with a residual "))
+    E.append(("sub", "441088FC",
+              ", not peri-necrotic. This residual association between the MES programme and "
+              "vascular, myeloid-rich microdomains is consistent with",
+              " association that reflects the vascular and myeloid content of those microdomains. "
+              "That association is consistent with"))
+
+    # (3) the Limitations still call the peri-necrotic result "the perivascular claim"
+    E.append(("sub", "07505CF4",
+              "remains pending as the natural next test of the perivascular claim",
+              "remains pending as the natural next test of the peri-necrotic localisation"))
+
+    # (4) reviewer minor 17: the headings are unnumbered, so "Section 3.5" was a broken
+    #     reference; convert it to a named one
+    E.append(("sub", "3893E80F",
+              "the diffusion-pseudotime axis defined in Section 3.5",
+              "the diffusion-pseudotime axis defined in the MES-trajectory section below"))
+
+    # (5) reviewer minor 9: say what identified malignant cells in each cohort, with thresholds
+    E.append(("sub", "3479310B",
+              "The same scoring was applied per cohort for GSE131928, GSE182109, GSE70630 and "
+              "GSE89567 with cohort-appropriate normalization; cohort means use patient-level "
+              "means.",
+              "The same scoring was applied per cohort for GSE131928, GSE182109, GSE70630 and "
+              "GSE89567 with cohort-appropriate normalization; cohort means use patient-level "
+              "means. Malignant cells were called in every cohort by the same marker-score rule "
+              "\u2014 the immune and endothelial marker panels, with exclusion above a score of "
+              "0.5 \u2014 and no published cell-type annotation was used; de-novo inferCNV "
+              "support is reported for the discovery cohort (Fig. S1f) and is not used to relabel "
+              "cells in the other cohorts."))
+
+    # (6) the Conclusions still carried three claims the revision superseded: the perivascular
+    #     niche, "converge on a compact switch", and TWIST1 as a switch component (plus an
+    #     unconditional survival claim)
+    E.append(("para", "24BE4AAC",
+              "Two independent inference routes, one using curated transcription-factor priors "
+              "and one built de novo from the raw data, identify a compact AP-1/C-EBP core: the "
+              "AP-1 family (FOSL1/FOSL2/JUN/JUNB) together with CEBPD and CEBPB, with a STAT3 arm "
+              "and a hypoxia-linked arm. The agreement between them is limited rather than total "
+              "\u2014 their top-30 lists share only a handful of factors, and TWIST1 and CEBPB "
+              "change sign between the two routes, so neither is claimed as a switch component. "
+              "The program localises to the pseudopalisading/peri-necrotic compartment rather than "
+              "to microvascular proliferation, where IL-6, FGF, EGF and TGF-" + "\u03b2"
+              + "/BMP ligands act on receptors that the malignant cells express while CSF1 acts "
+              "through the myeloid compartment, and a score built from the program is prognostic "
+              "for overall survival in the CGGA cohorts, though not in TCGA after adjustment for "
+              "stromal content. These associations nominate candidate control nodes and a "
+              "microenvironmental context for MES transition; establishing causality, and testing "
+              "the peri-necrotic localisation with single-cell spatial data, will require "
+              "perturbation experiments and spatial transcriptomics (Fig. 5; Ravi et al. [25])."))
+
+    # (7) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
+    #     hypoxia-responsive regulator in GBM), [23] (Loftus 2024, ILK/STAT3 plasticity) and
+    #     [3] (Lin 2024, the immunosuppressive glioma microenvironment). Citing them where they
+    #     belong is safer than deleting them (which would renumber every citation).
+    E.append(("sub", "0E5EA46D",
+              "C/EBP" + "\u03b2" + " and STAT3 were identified as master regulators of "
+              "mesenchymal transformation in glioma more than a decade ago [26], the NF-"
+              + "\u03ba" + "B arm and its link to radioresistance have precedent [21,27],",
+              "C/EBP" + "\u03b2" + " and STAT3 were identified as master regulators of "
+              "mesenchymal transformation in glioma more than a decade ago [26] " + "\u2014"
+              + " CEBPD has since been implicated as a hypoxia-responsive regulator in "
+              "glioblastoma [22] and the ILK/STAT3 axis in stem-cell plasticity [23] "
+              + "\u2014" + ", the NF-" + "\u03ba" + "B arm and its link to radioresistance have "
+              "precedent [21,27],"))
+    E.append(("sub", "3ED7EBF0",
+              "its signal must be read as acting through a myeloid intermediary in the niche "
+              "rather than on malignant cells directly",
+              "its signal must be read as acting through a myeloid intermediary in the niche "
+              "rather than on malignant cells directly [3]"))
+
     return E
 
 
@@ -568,6 +654,14 @@ def _verify_extra():
         ("GSE163120 in Methods", "excluded a priori because it contains only immune cells"),
         ("abstract updated", "that overlap is greater than chance"),
         ("consensus sensitivity stated", "does not rest on them"),
+        ("peri-necrotic heading", "localizes to the pseudopalisading/peri-necrotic compartment"),
+        ("niche contradiction fixed", "best described as peri-necrotic"),
+        ("Limitations niche wording", "the peri-necrotic localisation"),
+        ("cross-reference named", "the MES-trajectory section below"),
+        ("malignant calls per cohort", "exclusion above a score of 0.5"),
+        ("Conclusions de-staled", "The agreement between them is limited rather than total"),
+        ("prior art cited", "hypoxia-responsive regulator in glioblastoma [22]"),
+        ("myeloid intermediary cited", "malignant cells directly [3]"),
     ]
 
 
