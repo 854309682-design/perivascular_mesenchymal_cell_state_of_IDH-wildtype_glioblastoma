@@ -112,6 +112,23 @@ def denovo():
                 n_tf=int((cons["is_cisTarget_TF"] == True).sum()), n_all=int(len(cons)))
 
 
+def ranks():
+    """Rank of each key factor in the two routes' consensuses (1 = best)."""
+    dn = _tsv("rev07_denovo_consensus.tsv", ["regulon", "mean_rho"]).sort_values(
+        "mean_rho", ascending=False)
+    pr = _tsv("rev02_tf_consensus_reimplemented.tsv", ["tf", "mean_rho"]).sort_values(
+        "mean_rho", ascending=False)
+    dr = {t: i + 1 for i, t in enumerate(dn["regulon"])}
+    prr = {t: i + 1 for i, t in enumerate(pr["tf"])}
+    return dict(dn=dr, pr=prr, n_dn=len(dn), n_pr=len(pr))
+
+
+def recep():
+    """Receptor detection fractions on malignant GSE182109 cells (rev10)."""
+    d = _tsv("rev10_receptor_fractions.tsv", ["receptor", "pct_malignant_expressing"])
+    return dict(zip(d["receptor"], d["pct_malignant_expressing"].astype(float)))
+
+
 def sens():
     """Leave-one-cohort-out evidence for the prior-route consensus (reviewer minor 5)."""
     kt = _tsv("rev27_key_factor_ranks.tsv", ["factor", "sign_stable"])
@@ -149,6 +166,8 @@ def build():
     D = denovo()
     P = prior()
     S = sens()
+    R = recep()
+    K = ranks()
     cmap = dict(zip(P["cons"]["tf"], P["cons"]["mean_rho"]))   # prior-route mean rho per TF
     t2 = P["cons"].head(2)["tf"].tolist()                      # the two leading prior-route TFs
     rho = T["rho"]
@@ -623,7 +642,60 @@ def build():
               "resolves to the latest archived version of this revision), together with the "
               "environment specification and a data manifest"))
 
-    # (8) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
+    # (8) reviewer item 2.8/2.10: the receptor sentence still carried the SUBMITTED percentages
+    #     and cited a receptor panel that the rebuilt Figure 5 does not have
+    E.append(("sub", "3ED7EBF0",
+              "Their cognate receptors are expressed on the malignant cells themselves (Fig. 5e; "
+              "percentages of 150,213 malignant GSE182109 cells): IL6ST (55%), LRP1 (56%), ITGB1, "
+              "EGFR (38%), BMPR2 (35%), CD44, FGFR1 (27%) and TGFBR1, whereas CSF1R is nearly "
+              "absent (7%) and is now plotted explicitly.",
+              "Their cognate receptors are expressed on the malignant cells themselves "
+              "(percentages of 150,213 malignant GSE182109 cells, complete list in "
+              "rev10_receptor_fractions.tsv in the code archive): IL6ST "
+              f"({R['IL6ST']:.0f}%), LRP1 ({R['LRP1']:.0f}%), ITGB1 ({R['ITGB1']:.0f}%), EGFR "
+              f"({R['EGFR']:.0f}%), BMPR2 ({R['BMPR2']:.0f}%), CD44 ({R['CD44']:.0f}%), FGFR1 "
+              f"({R['FGFR1']:.0f}%) and TGFBR1 ({R['TGFBR1']:.0f}%), whereas CSF1R is nearly "
+              f"absent ({R['CSF1R']:.0f}%), which is why the receptor fractions are reported as "
+              "a table rather than as a panel."))
+
+    # (10) the "reproducible consensus" claim: only five factors are shared by both top-30 lists,
+    #      but the sentence named an AP-1 set that includes CEBPD and JUN, which are de-novo-only.
+    #      Ranks below are read from the two consensus tables.
+    ap1 = "FOSL1, FOSL2 and JUNB"
+    rk = ("de-novo ranks " + "/".join(str(K["dn"][t]) for t in ("FOSL1", "FOSL2", "JUNB"))
+          + ", prior ranks " + "/".join(str(K["pr"][t]) for t in ("FOSL1", "FOSL2", "JUNB")))
+    # the core-definition sentence spans three runs (the middle one is bold), so it is edited
+    # run by run: run[0] introduces it, run[1] (bold) carries the set, run[2] continues.
+    E.append(("sub", "21523EDC",
+              "we take the reproducible consensus to be an AP-1/C-EBP core, namely ",
+              "we take the reproducible core to be AP-1 itself \u2014 "))
+    E.append(("run", "21523EDC", "AP-1 (FOSL1/FOSL2/JUN/JUNB)",
+              "FOSL1, FOSL2 and JUNB (de-novo ranks "
+              + "/".join(str(K["dn"][t]) for t in ("FOSL1", "FOSL2", "JUNB"))
+              + ", prior ranks " + "/".join(str(K["pr"][t]) for t in ("FOSL1", "FOSL2", "JUNB"))
+              + "), supported by STAT1 and NFIC"))
+    E.append(("sub", "21523EDC",
+              ". Two factors that the submitted version placed in the switch",
+              ". CEBPD and JUN are evidence from the de-novo route alone (CEBPD ranks "
+              + str(K["dn"]["CEBPD"]) + "st of " + str(K["n_dn"]) + " regulons there but "
+              + str(K["pr"]["CEBPD"]) + "th of " + str(K["n_pr"]) + " in the prior route; JUN "
+              + str(K["dn"]["JUN"]) + "th and " + str(K["pr"]["JUN"]) + "th), STAT3 leads the "
+              "prior route and reaches only rank " + str(K["dn"]["STAT3"]) + " de novo, and a "
+              "hypoxia-linked arm appears in both readouts. Two factors that the submitted "
+              "version placed in the switch"))
+    E.append(("sub", "21523EDC",
+              "This supports H2 only in the weakened form stated here: a small, reproducible "
+              "AP-1/C-EBP core, not a compact three-pillar switch.",
+              "This supports H2 only in the weakened form stated here: a small AP-1-centred core "
+              "that both routes reproduce, with a C/EBP arm and a STAT3 arm that each rest mainly "
+              "on one route \u2014 not a compact three-pillar switch."))
+
+    # (11) the Figure 5 title still carried the submitted perivascular claim
+    E.append(("sub", "50242B74",
+              "Figure 5 | The MES niche is perivascular, ligand-linked, and prognostic.",
+              "Figure 5 | The MES niche is peri-necrotic, ligand-linked, and prognostic."))
+
+    # (9) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
     #     hypoxia-responsive regulator in GBM), [23] (Loftus 2024, ILK/STAT3 plasticity) and
     #     [3] (Lin 2024, the immunosuppressive glioma microenvironment). Citing them where they
     #     belong is safer than deleting them (which would renumber every citation).
@@ -673,6 +745,9 @@ def _verify_extra():
         ("prior art cited", "hypoxia-responsive regulator in glioblastoma [22]"),
         ("myeloid intermediary cited", "malignant cells directly [3]"),
         ("concept DOI cited", "zenodo.23262404"),
+        ("receptor fractions from the re-run", "which is why the receptor fractions are reported"),
+        ("reproducible core scoped", "we take the reproducible core to be AP-1 itself"),
+        ("Figure 5 title peri-necrotic", "The MES niche is peri-necrotic"),
     ]
 
 
