@@ -613,7 +613,17 @@ def build():
               "the peri-necrotic localisation with single-cell spatial data, will require "
               "perturbation experiments and spatial transcriptomics (Fig. 5; Ravi et al. [25])."))
 
-    # (7) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
+    # (7) the availability statement cited a VERSION DOI (…52405 = the 2026-10-09 deposit) while
+    #     the revision is published as v1.0.1; Zenodo's concept DOI always resolves to the latest
+    #     archived version, so cite that instead
+    E.append(("sub", "7F70A6DF",
+              "and archived at https://doi.org/10.5281/zenodo.23262405, together with the "
+              "environment specification and a data manifest",
+              "and archived at https://doi.org/10.5281/zenodo.23262404 (concept DOI, which "
+              "resolves to the latest archived version of this revision), together with the "
+              "environment specification and a data manifest"))
+
+    # (8) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
     #     hypoxia-responsive regulator in GBM), [23] (Loftus 2024, ILK/STAT3 plasticity) and
     #     [3] (Lin 2024, the immunosuppressive glioma microenvironment). Citing them where they
     #     belong is safer than deleting them (which would renumber every citation).
@@ -662,6 +672,7 @@ def _verify_extra():
         ("Conclusions de-staled", "The agreement between them is limited rather than total"),
         ("prior art cited", "hypoxia-responsive regulator in glioblastoma [22]"),
         ("myeloid intermediary cited", "malignant cells directly [3]"),
+        ("concept DOI cited", "zenodo.23262404"),
     ]
 
 
