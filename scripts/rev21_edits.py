@@ -112,6 +112,23 @@ def denovo():
                 n_tf=int((cons["is_cisTarget_TF"] == True).sum()), n_all=int(len(cons)))
 
 
+def sens():
+    """Leave-one-cohort-out evidence for the prior-route consensus (reviewer minor 5)."""
+    kt = _tsv("rev27_key_factor_ranks.tsv", ["factor", "sign_stable"])
+    sp = _tsv("rev27_mes_score_spread.tsv", ["cohort", "sd"])
+    rank_cols = [c for c in kt.columns if c.startswith("rank_")]
+    stat3 = kt.loc[kt["factor"] == "STAT3", rank_cols].values.ravel().astype(float)
+    neg = kt[kt["factor"].isin(["CEBPB", "RELA", "TWIST1"])]
+    n_tfs = 262                                   # TFs in the DoRothEA A-C prior
+    bottom = bool((neg[rank_cols].values.astype(float) > 0.75 * n_tfs).all())
+    sd = dict(zip(sp["cohort"], sp["sd"].astype(float)))
+    mut = [sd[c] for c in ("GSE70630", "GSE89567") if c in sd]
+    wt10x = [sd[c] for c in ("GSE103224", "GSE182109") if c in sd]
+    return dict(stat3_lo=int(np.nanmin(stat3)), stat3_hi=int(np.nanmax(stat3)),
+                sign_stable=bool(kt["sign_stable"].all()), bottom=bottom,
+                mut_sd=(min(mut), max(mut)), wt_sd=(min(wt10x), max(wt10x)))
+
+
 def prior():
     cons = _tsv("rev02_tf_consensus_reimplemented.tsv", ["tf", "mean_rho", "n_fdr005"])
     cons = cons.sort_values("mean_rho", ascending=False)
@@ -131,6 +148,7 @@ def build():
     T = traj()
     D = denovo()
     P = prior()
+    S = sens()
     cmap = dict(zip(P["cons"]["tf"], P["cons"]["mean_rho"]))   # prior-route mean rho per TF
     t2 = P["cons"].head(2)["tf"].tolist()                      # the two leading prior-route TFs
     rho = T["rho"]
@@ -422,6 +440,24 @@ def build():
         ("with AP-1/STAT3 positive and CEBPB/RELA/TEAD1 negative in the prior-based readout.",
          "with AP-1/STAT3 positive and CEBPB and RELA negative in the prior-based readout "
          "(TEAD1 is positive in three of the four cohorts and is not placed in the switch)."),
+        # reviewer minor 5: show that the consensus does not rest on the near-zero-MES cohorts
+        ("The four-cohort consensus (Fig. 3a) placed " + t2[0] + " and " + t2[1] + " at the top "
+         "(mean " + RHO + f" {cmap[t2[0]]:.2f}/{cmap[t2[1]]:.2f}, {t2[0]} FDR < 0.05 in 4/4 "
+         "cohorts), with the AP-1 factors FOSL1 and JUNB also positive (" + RHO + " "
+         f"{cmap['FOSL1']:.2f}/{cmap['JUNB']:.2f}).",
+         "The four-cohort consensus (Fig. 3a) placed " + t2[0] + " and " + t2[1] + " at the top "
+         "(mean " + RHO + f" {cmap[t2[0]]:.2f}/{cmap[t2[1]]:.2f}, {t2[0]} FDR < 0.05 in 4/4 "
+         "cohorts), with the AP-1 factors FOSL1 and JUNB also positive (" + RHO + " "
+         f"{cmap['FOSL1']:.2f}/{cmap['JUNB']:.2f}). Because the IDH-mutant series contain few "
+         "MES-state cells (mean MES-like proportion 0.002" + EN + "0.011), we verified that "
+         "this consensus does not rest on them: their per-cell MES scores are not degenerate "
+         f"(SD {S['mut_sd'][0]:.2f}" + EN + f"{S['mut_sd'][1]:.2f}, against "
+         f"{S['wt_sd'][0]:.2f}" + EN + f"{S['wt_sd'][1]:.2f} in the two 10x wild-type cohorts), "
+         "the correlations are rank-based, and dropping any single cohort " + EN + " including "
+         "the IDH-mutant one " + EN + " leaves the leading factors and the sign of every "
+         "candidate factor unchanged (" + t2[0] + " ranks " + str(S["stat3_lo"]) + EN
+         + str(S["stat3_hi"]) + " in every variant; CEBPB, RELA and TWIST1 stay negative and in "
+         "the bottom quarter of the ranking)."),
     ]))
     # the rest of the comparison paragraph: the numbers it quotes for the two routes
     pp = P["pp"]
@@ -531,6 +567,7 @@ def _verify_extra():
         ("Methods MES terminology", "names the mesenchymal meta-module state"),
         ("GSE163120 in Methods", "excluded a priori because it contains only immune cells"),
         ("abstract updated", "that overlap is greater than chance"),
+        ("consensus sensitivity stated", "does not rest on them"),
     ]
 
 

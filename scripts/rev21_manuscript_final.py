@@ -127,10 +127,12 @@ def main():
             txt = unesc(text_of(runs[j]))
             new_text, bad = txt, []
             for old, rep in pairs:
-                if old in new_text:
-                    new_text = new_text.replace(old, rep, 1)
-                elif norm(rep) in norm(new_text):
+                # check the replacement FIRST: for an append-style pair the anchor survives the
+                # replacement, so an old-first test would append the clause on every re-run
+                if norm(rep) in norm(new_text):
                     pass                             # already applied
+                elif old in new_text:
+                    new_text = new_text.replace(old, rep, 1)
                 else:
                     bad.append(old[:44])
             if bad:

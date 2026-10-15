@@ -1,0 +1,7 @@
+variant	n_cohorts	cohorts	top5	rank_STAT3	rank_KLF4	rank_SP1	rank_FOSL1	rank_FOSL2	rank_JUNB
+all four cohorts	4	GSE103224, GSE182109, Neftel, Venteicher	STAT3, SP1, FOSL1, HIF1A, KLF4	1	5	2	3	20	27
+IDH-wildtype cohorts only	3	GSE103224, GSE182109, Neftel	STAT3, SP1, FOSL1, TCF4, ZEB2	1	6	2	3	20	33
+without GSE103224	3	GSE182109, Neftel, Venteicher	HIF1A, SP1, STAT3, FOSL1, KLF4	3	5	2	4	19	36
+without GSE182109	3	GSE103224, Neftel, Venteicher	STAT3, HIF1A, SP1, KLF4, FOSL1	1	4	3	5	21	19
+without Neftel	3	GSE103224, GSE182109, Venteicher	STAT3, SP1, FOSL1, HIF1A, HOXA9	1	6	2	3	28	26
+without Venteicher	3	GSE103224, GSE182109, Neftel	STAT3, SP1, FOSL1, TCF4, ZEB2	1	6	2	3	20	33
