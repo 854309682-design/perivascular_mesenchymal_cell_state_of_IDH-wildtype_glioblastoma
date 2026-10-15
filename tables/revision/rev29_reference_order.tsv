@@ -1,0 +1,30 @@
+new_number	old_number	first_cited_paragraph_paraId	entry
+1	1	6109BE8D	Neftel C. et al. An integrative model of cellular states, plasticity, and genetics for glioblastoma. Cell 2019 (PMID 31327527).
+2	28	6109BE8D	Wang Q. et al. Tumor evolution of glioma-intrinsic gene expression subtypes associates with immunological changes in the microenvironment. Cancer Cell 2017 (PMID 28697342; mesenchymal transition in bulk tumours tracks microenvironmental rather than genetic evolution, and the origin of the 'bulk MES = stromal content' caveat tested here).
+3	26	6109BE8D	Carro M.S. et al. The transcriptional network for mesenchymal transformation of brain tumours. Nature 2010 (PMID 20032975; C/EBPβ and STAT3 as master regulators of mesenchymal transformation).
+4	27	6109BE8D	Bhat K.P.L. et al. Mesenchymal differentiation mediated by NF-κB promotes radiation resistance in glioblastoma. Cancer Cell 2013 (PMID 24209607).
+5	29	6109BE8D	Minata M. et al. Phenotypic plasticity of invasive edge glioma stem-like cells in response to ionizing radiation. Cell Rep 2019 (PMID 30759398; radiation-induced, C/EBPβ/STAT3-driven reversible mesenchymal plasticity).
+6	4	49910F62	Yuan J. et al. Single-cell transcriptome analysis of lineage diversity in high-grade glioma. Genome Med 2018 (PMID 30041684).
+7	5	49910F62	Abdelfattah N. et al. Single-cell analysis of human glioma and immune cells identifies S100A4 as an immunotherapy target. Nat Commun 2022 (PMID 35140215).
+8	6	49910F62	Venteicher A.S. et al. Decoupling genetics, lineages, and microenvironment in IDH-mutant gliomas by single-cell RNA-seq. Science 2017 (PMID 28360267; data GSE89567).
+9	10	49910F62	Tirosh I. et al. Single-cell RNA-seq supports a developmental hierarchy in human oligodendroglioma. Nature 2016 (PMID 27806376; data GSE70630).
+10	7	49910F62	Puchalski R.B. et al. An anatomic transcriptional atlas of human glioblastoma (IvyGAP). Science 2018 (PMID 29748285; data GSE107559).
+11	8	49910F62	Garcia-Alonso L. et al. Benchmark and integration of resources for the estimation of human transcription factor activities (DoRothEA). Genome Res 2019 (PMID 31340985).
+12	9	49910F62	Aibar S. et al. SCENIC: single-cell regulatory network inference and clustering. Nat Methods 2017 (PMID 28991892).
+13	11	4DF903D0	Browaeys R. et al. NicheNet: modeling intercellular communication by linking ligands to target genes. Nat Methods 2020 (PMID 31819264).
+14	12	6D6FFB14	Spitzer A. et al. Deciphering the longitudinal trajectories of glioblastoma ecosystems by integrative single-cell genomics. Nat Genet 2025 (PMID 40346362).
+15	2	6D6FFB14	Varn F.S. et al. (GLASS Consortium). Glioma progression is shaped by genetic evolution and microenvironment interactions. Cell 2022 (PMID 35649412).
+16	13	7C72AC66	Badia-i-Mompel P. et al. decoupleR: ensemble of computational methods to infer biological activities from omics data. Bioinform Adv 2022 (PMID 36699385).
+17	14	7440013E	Bravo González-Blas C. et al. SCENIC+: single-cell multiomic inference of enhancers and gene regulatory networks. Nat Methods 2023 (PMID 37443338).
+18	15	69892ECF	Schiffman J.S., Landau D.A. et al. Defining heritability, plasticity, and transition dynamics of cellular phenotypes in somatic evolution. Nat Genet 2024 (PMID 39317739).
+19	16	441088FC	Liu M. et al. Spatial transcriptomics reveals segregation of tumor cell states in glioblastoma and marked immunosuppression within the perinecrotic niche. Acta Neuropathol Commun 2024 (PMID 38650010).
+20	17	441088FC	Moffet J.J.D., Best S.A. et al. Spatial architecture of high-grade glioma reveals tumor heterogeneity within distinct domains. Neurooncol Adv 2023 (PMID 38077210).
+21	18	441088FC	Sonpatki P., Shah N. et al. A spatially resolved human glioblastoma atlas reveals distinct cellular and molecular patterns of anatomical niches. Nat Commun 2026 (PMID 41714633).
+22	19	441088FC	Zhao L., Rich J.N. et al. Lymphatic endothelial-like cells promote glioblastoma stem cell growth through cytokine-driven cholesterol metabolism. Nat Cancer 2024 (PMID 38172338).
+23	25	441088FC	Ravi V.M. et al. Spatially resolved multi-omics deciphers bidirectional tumor-host interdependence in glioblastoma. Cancer Cell 2022 (PMID 35700707; Dryad 10.5061/dryad.h70rxwdmj; spatial extension pending data availability).
+24	3	3ED7EBF0	Lin H., Mao Y. et al. Understanding the immunosuppressive microenvironment of glioma: mechanistic insights and clinical perspectives. J Hematol Oncol 2024 (PMID 38720342).
+25	20	3ED7EBF0	Chen Y., Wang J. et al. Tumor-associated monocytes promote mesenchymal transformation through EGFR signaling in glioma. Cell Rep Med 2023 (PMID 37652019).
+26	22	0E5EA46D	Mao X.G., Zhang X. et al. CEBPD is a master transcriptional factor for hypoxia regulated proteins in glioblastoma and augments hypoxia induced invasion through extracellular matrix-integrin mediated EGFR/PI3K pathway. Cell Death Dis 2023 (PMID 37059730).
+27	23	0E5EA46D	Loftus A.E.P., Frame M.C. et al. An ILK/STAT3 pathway controls glioblastoma stem cell plasticity. Dev Cell 2024 (PMID 39326421).
+28	21	0E5EA46D	Guo S., Liu M. et al. TRPM7 transactivates the FOSL1 gene through STAT3 and enhances glioma stemness. Cell Mol Life Sci 2023 (PMID 37642779).
+29	24	0E5EA46D	Greene L.A. et al. Targeting transcription factors ATF5, CEBPB and CEBPD with cell-penetrating peptides to treat brain and other cancers. Cells 2023 (PMID 36831248).
