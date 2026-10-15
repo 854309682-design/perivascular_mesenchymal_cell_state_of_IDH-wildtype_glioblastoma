@@ -192,6 +192,19 @@ Smart-seq2 block only, because its two public matrices are delivered on differen
 (log2(TPM+1) versus raw TPM) and concatenating them made that cohort's MES score and pseudotime
 axis predominantly a *platform* axis (measured: ρ(platform, MES) = 0.82).
 
+## v1.0.2 — sensitivity analysis and text-pass corrections (2026-10-15)
+
+Added on top of v1.0.1, after the reviewer response was finalised:
+
+| Added | What it is | Manuscript item |
+|---|---|---|
+| `scripts/rev27_consensus_sensitivity.py` + `tables/revision/rev27_*.tsv` | the prior-route consensus recomputed on the IDH-wildtype cohorts only and leave-one-cohort-out, the rank of every candidate factor in each variant, and the per-cohort MES-score spread (SD/IQR) | reviewer minor 5 ("does the near-zero-MES cohort drive the 4/4 claim?") and minor 10 (platform comparability) |
+| `scripts/rev21_manuscript_final.py` fix | the `para_sub` "already applied" test now checks the replacement before the anchor, so append-style edits cannot append their clause twice on a re-run | reproducibility of the manuscript-editing pass |
+| `scripts/rev21_edits.py` corrections | nine further text edits: four internal contradictions the first pass left behind (§3.5 heading and closing sentence, the Limitations wording, and the whole Conclusions paragraph still carried the submitted *perivascular* / *converge* / *TWIST1* claims), the last numbered cross-reference converted to a named one, the per-cohort malignant-cell rule stated with its threshold, and three references that were in the list but cited nowhere ([3], [22], [23]) now cited where they belong | reviewers minor 9, 16, 17 |
+| availability statement | cites the **concept** DOI `10.5281/zenodo.23262404` (resolves to the latest archived version) instead of a version DOI of the first deposit | data-availability requirement |
+
+The revision is archived as the **v1.0.2** release; the concept DOI always resolves to it.
+
 ## Caveats
 
 - Everything here is **in silico, associational**; regulon inference is correlative and does not establish
