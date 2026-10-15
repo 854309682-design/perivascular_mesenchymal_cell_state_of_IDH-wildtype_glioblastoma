@@ -310,29 +310,6 @@ def build():
               f"{float(ov['odds_ratio']):.2f}."))
 
     # ---------- Results 3.3: the de-novo arm
-    E.append(("para", "7440013E",
-              "Second, we rebuilt gene-regulatory networks de novo in each cohort with pySCENIC "
-              "[9] (GRNBoost2 co-expression modules, cisTarget motif pruning, AUCell per-cell "
-              "activity), which makes no use of curated TF" + EN + "target priors (for the "
-              "multi-omic extension of this framework, see SCENIC+ [14]). Because the submitted "
-              "de-novo arm could not be reproduced, this route was re-run from the raw data in the "
-              "three cohorts common to both routes, with a state-stratified subsample of 2,000 "
-              "malignant cells per cohort (" + ", ".join(f"{k} {v}" for k, v in D["counts"].items())
-              + " regulons). Its consensus (Fig. 3b) is headed by " + top10_str(D) + ". The top of "
-              "this list is not the submitted one. Auditing every ranked regulon against the "
-              "cisTarget TF universe accounts for the artefact the reviewers identified: "
-              + ", ".join(_absent(["CD59", "NPAS2", "FOXC1"]))
-              + " do not appear among the ranked regulons at all, and NFATC4 appears only at rank "
-              + str(rank_of.get("NFATC4", -1)) + " (mean " + RHO + " "
-              + f"{rho_of.get('NFATC4', 0.0):+.2f}); TPI1 is ranked "
-              + str(rank_of.get("TPI1", -1)) + " (mean " + RHO + " "
-              + f"{rho_of.get('TPI1', 0.0):+.2f}) \u2014 TPI1 is not a transcription factor, but "
-              "it is listed in that universe, so we report the full ranking in the shipped table "
-              "and exclude it from the switch. The per-cohort distributions of "
-              "regulon" + EN + "MES correlations (Fig. 3e) show that each cohort independently "
-              "contains strongly MES-tracking regulons, even though the cohort medians sit near "
-              "zero. The signal is therefore concentrated in a small set of regulons, not spread "
-              "across the whole network."))
 
     # ---------- Results 3.3: the route comparison
     E.append(("sub", "21523EDC",
@@ -392,24 +369,6 @@ def build():
 
     # ---------- Methods: De-novo regulon inference (pySCENIC)
     regs = ", ".join(f"{k} {v}" for k, v in D["counts"].items())
-    E.append(("sub", "6ACF45E9",
-              " Per cohort, a state-stratified subsample of malignant cells (\u226410,000 cells, "
-              "min 200 per state) was exported as a loom. GRNBoost2 (arboreto) inferred "
-              "co-expression modules; cisTarget (hg38, mc9nr, 10 kb and 500 bp databases) pruned "
-              "modules to motif-supported regulons; AUCell produced per-cell regulon activity "
-              "(278\u2013477 regulons per cohort). Regulon activity was correlated with the MES "
-              "score per cohort (Spearman plus regulon-activity score), and the four-cohort "
-              "consensus ranked regulons by mean " + RHO + " with a per-cohort significance count.",
-              " Per cohort, a state-stratified subsample of malignant cells (500 per state, "
-              "\u22642,000 per cohort; genes detected in \u22655% of the subsampled cells) was "
-              "exported as a loom. GRNBoost2 (arboreto) inferred co-expression modules; cisTarget "
-              "(hg38, mc9nr, 10 kb and 500 bp databases, NES \u2265 3.0) pruned modules to "
-              "motif-supported regulons; AUCell produced per-cell regulon activity (" + regs +
-              " regulons). This re-run covers the three cohorts common to both routes and uses a "
-              "smaller subsample than the submitted analysis, because the original code was not "
-              "recoverable; every ranked regulon was audited against the cisTarget TF universe. "
-              "Regulon activity was correlated with the MES score per cohort, and the three-cohort "
-              "consensus ranked regulons by mean " + RHO + " with a per-cohort significance count."))
 
     # ---------- Abstract (only the affected numbers change; everything else is preserved)
     pr_rho = ", ".join(f"{cmap.get(t, float('nan')):.2f} {t}" for t in ("STAT3", "FOSL1", "JUNB"))
@@ -448,36 +407,6 @@ def build():
               "discovery cohort"))
 
     # ---------- Results 3.3, first paragraph: the prior route's own numbers
-    E.append(("para_sub", "7C72AC66", [
-        ("The four-cohort consensus (Fig. 3a) placed STAT3 and KLF4 at the top (mean " + RHO
-         + " \u2248 0.39, STAT3 FDR < 0.05 in 4/4 cohorts), with the AP-1 factors JUNB and FOSL1 "
-         "also positive (" + RHO + " \u2248 0.30/0.29).",
-         "The four-cohort consensus (Fig. 3a) placed " + t2[0] + " and " + t2[1] + " at the top "
-         "(mean " + RHO + f" {cmap[t2[0]]:.2f}/{cmap[t2[1]]:.2f}, {t2[0]} FDR < 0.05 in 4/4 "
-         "cohorts), with the AP-1 factors FOSL1 and JUNB also positive (" + RHO + " "
-         f"{cmap['FOSL1']:.2f}/{cmap['JUNB']:.2f})."),
-        ("with AP-1/STAT3 positive and CEBPB/RELA/TEAD1 negative in the prior-based readout.",
-         "with AP-1/STAT3 positive and CEBPB and RELA negative in the prior-based readout "
-         "(TEAD1 is positive in three of the four cohorts and is not placed in the switch)."),
-        # reviewer minor 5: show that the consensus does not rest on the near-zero-MES cohorts
-        ("The four-cohort consensus (Fig. 3a) placed " + t2[0] + " and " + t2[1] + " at the top "
-         "(mean " + RHO + f" {cmap[t2[0]]:.2f}/{cmap[t2[1]]:.2f}, {t2[0]} FDR < 0.05 in 4/4 "
-         "cohorts), with the AP-1 factors FOSL1 and JUNB also positive (" + RHO + " "
-         f"{cmap['FOSL1']:.2f}/{cmap['JUNB']:.2f}).",
-         "The four-cohort consensus (Fig. 3a) placed " + t2[0] + " and " + t2[1] + " at the top "
-         "(mean " + RHO + f" {cmap[t2[0]]:.2f}/{cmap[t2[1]]:.2f}, {t2[0]} FDR < 0.05 in 4/4 "
-         "cohorts), with the AP-1 factors FOSL1 and JUNB also positive (" + RHO + " "
-         f"{cmap['FOSL1']:.2f}/{cmap['JUNB']:.2f}). Because the IDH-mutant series contain few "
-         "MES-state cells (mean MES-like proportion 0.002" + EN + "0.011), we verified that "
-         "this consensus does not rest on them: their per-cell MES scores are not degenerate "
-         f"(SD {S['mut_sd'][0]:.2f}" + EN + f"{S['mut_sd'][1]:.2f}, against "
-         f"{S['wt_sd'][0]:.2f}" + EN + f"{S['wt_sd'][1]:.2f} in the two 10x wild-type cohorts), "
-         "the correlations are rank-based, and dropping any single cohort " + EN + " including "
-         "the IDH-mutant one " + EN + " leaves the leading factors and the sign of every "
-         "candidate factor unchanged (" + t2[0] + " ranks " + str(S["stat3_lo"]) + EN
-         + str(S["stat3_hi"]) + " in every variant; CEBPB, RELA and TWIST1 stay negative and in "
-         "the bottom quarter of the ranking)."),
-    ]))
     # the rest of the comparison paragraph: the numbers it quotes for the two routes
     pp = P["pp"]
     E.append(("sub", "21523EDC",
@@ -494,18 +423,6 @@ def build():
               "mean rho " + f"{cmap['TWIST1']:.2f}" + ", FDR < 0.05 in 4/4; positive in only "
               + f"{float(pp['TWIST1']['patient_pct_positive']):.0f}" + "% of patients"))
     # ---------- Limitations: record the GSE131928 platform correction
-    E.append(("para_sub", "07505CF4", [
-        ("SCENIC inputs for two cohorts are log-normalized rather than UMI counts, and the "
-         "IDH-mutant cohorts contain few MES cells.",
-         "SCENIC inputs for two cohorts are log-normalized rather than UMI counts. We also found "
-         "and corrected a platform-scale inconsistency in GSE131928: its two public matrices are "
-         "delivered on different scales (log2(TPM+1) versus raw TPM) and concatenating them made "
-         "that cohort's MES score and pseudotime axis predominantly a platform axis, so the cohort "
-         "is now scored on its Smart-seq2 block alone \u2014 which changes its patient count "
-         "(45 to 35) and its mean MES-like proportion (0.185 to 0.216) and removes its "
-         "contribution to the multi-cohort pseudotime claim. The IDH-mutant cohorts contain few "
-         "MES cells."),
-    ]))
 
     # ---------- Discussion: the pseudotime claim
     E.append(("para_sub", "03BE3C7E", [
@@ -517,42 +434,6 @@ def build():
     ]))
 
     # ---------- Results 3.4: the pseudotime axis, pooled vs per sample
-    E.append(("para_sub", "52711FBE", [
-        ("Repeating the analysis separately per cohort strengthened the result: oriented "
-         "pseudotime tracked the MES score with " + RHO + " = 0.66 (gse103224), 0.61 (GSE182109) "
-         "and 0.58 (Neftel) (Fig. 4b,e).",
-         "Within that cohort the correlation held at patient level (median per-sample " + RHO
-         + " = " + fmt_r(T["med"]["GSE103224"]) + "; " + str(int(T["gt03"]["GSE103224"])) + " of "
-         + str(int(T["nsamp"]["GSE103224"])) + " tumours above 0.3; Fig. 4d). Extending the same "
-         "procedure to the other two cohorts did not reproduce it: in GSE182109 the pooled "
-         "correlation was " + RHO + " = " + fmt_r(rho["GSE182109"]) + " (n = "
-         + f"{T['n']['GSE182109']:,}" + " malignant cells) but the median per-sample correlation "
-         "was only " + fmt_r(T["med"]["GSE182109"]) + " with " + str(int(T["gt03"]["GSE182109"]))
-         + " of " + str(int(T["nsamp"]["GSE182109"])) + " samples above 0.3, i.e. that pooled "
-         "value is driven by between-sample variation, and in GSE131928 the two axes were "
-         "effectively uncorrelated (" + RHO + " = " + fmt_r(rho["Neftel"]) + ", median per sample "
-         + fmt_r(T["med"]["Neftel"]) + "; Fig. 4b,e). We therefore changed the claim: the "
-         "MES-directed axis is presented as a property of the discovery cohort, replicated at "
-         "patient level within it, and we do not claim it for the other two cohorts (Fig. 4e)."),
-        ("Per-sample estimates, while heterogeneous, were predominantly positive in all cohorts "
-         "(Fig. 4d), but the pooled coefficients overstate the per-patient effect: the median "
-         "per-patient rho is well below the pooled value and the per-sample range spans negative "
-         "values, so the pooled correlation is descriptive and the per-sample distributions are "
-         "the honest summary (Fig. 4b,d,e).",
-         "Per-sample estimates were heterogeneous: they were predominantly positive in the "
-         "discovery cohort (" + str(int(T["pos"]["GSE103224"])) + " of "
-         + str(int(T["nsamp"]["GSE103224"])) + " tumours, which is why its pooled and per-sample "
-         "coefficients agree) but near zero in the other two, where the pooled value overstates "
-         "the per-patient effect (GSE182109: pooled " + fmt_r(rho["GSE182109"]) + " versus median "
-         "per-sample " + fmt_r(T["med"]["GSE182109"]) + "); the per-sample ranges span negative "
-         "values in all three cohorts, so the pooled correlation is descriptive and the "
-         "per-sample distributions are the honest summary (Fig. 4b,d,e)."),
-        ("The MES-directed axis is therefore a recurring property of glioma transcriptomes, not an "
-         "artefact of one dataset.",
-         "The MES-directed axis is therefore reported as a reproducible property of the discovery "
-         "cohort rather than of glioma transcriptomes in general, and the submitted per-cohort "
-         "values for GSE182109 and GSE131928 are not reproduced."),
-    ]))
 
     # ---------- Results 3.5: the composition along pseudotime (quantile bins)
     E.append(("para_sub", "69892ECF", [
@@ -600,47 +481,14 @@ def build():
               "the diffusion-pseudotime axis defined in the MES-trajectory section below"))
 
     # (5) reviewer minor 9: say what identified malignant cells in each cohort, with thresholds
-    E.append(("sub", "3479310B",
-              "The same scoring was applied per cohort for GSE131928, GSE182109, GSE70630 and "
-              "GSE89567 with cohort-appropriate normalization; cohort means use patient-level "
-              "means.",
-              "The same scoring was applied per cohort for GSE131928, GSE182109, GSE70630 and "
-              "GSE89567 with cohort-appropriate normalization; cohort means use patient-level "
-              "means. Malignant cells were called in every cohort by the same marker-score rule "
-              "\u2014 the immune and endothelial marker panels, with exclusion above a score of "
-              "0.5 \u2014 and no published cell-type annotation was used; de-novo inferCNV "
-              "support is reported for the discovery cohort (Fig. S1f) and is not used to relabel "
-              "cells in the other cohorts."))
 
     # (6) the Conclusions still carried three claims the revision superseded: the perivascular
     #     niche, "converge on a compact switch", and TWIST1 as a switch component (plus an
     #     unconditional survival claim)
-    E.append(("para", "24BE4AAC",
-              "Two independent inference routes, one using curated transcription-factor priors "
-              "and one built de novo from the raw data, identify a compact AP-1/C-EBP core: the "
-              "AP-1 family (FOSL1/FOSL2/JUN/JUNB) together with CEBPD and CEBPB, with a STAT3 arm "
-              "and a hypoxia-linked arm. The agreement between them is limited rather than total "
-              "\u2014 their top-30 lists share only a handful of factors, and TWIST1 and CEBPB "
-              "change sign between the two routes, so neither is claimed as a switch component. "
-              "The program localises to the pseudopalisading/peri-necrotic compartment rather than "
-              "to microvascular proliferation, where IL-6, FGF, EGF and TGF-" + "\u03b2"
-              + "/BMP ligands act on receptors that the malignant cells express while CSF1 acts "
-              "through the myeloid compartment, and a score built from the program is prognostic "
-              "for overall survival in the CGGA cohorts, though not in TCGA after adjustment for "
-              "stromal content. These associations nominate candidate control nodes and a "
-              "microenvironmental context for MES transition; establishing causality, and testing "
-              "the peri-necrotic localisation with single-cell spatial data, will require "
-              "perturbation experiments and spatial transcriptomics (Fig. 5; Ravi et al. [25])."))
 
     # (7) the availability statement cited a VERSION DOI (…52405 = the 2026-10-09 deposit) while
     #     the revision is published as v1.0.1; Zenodo's concept DOI always resolves to the latest
     #     archived version, so cite that instead
-    E.append(("sub", "7F70A6DF",
-              "and archived at https://doi.org/10.5281/zenodo.23262405, together with the "
-              "environment specification and a data manifest",
-              "and archived at https://doi.org/10.5281/zenodo.23262404 (concept DOI, which "
-              "resolves to the latest archived version of this revision), together with the "
-              "environment specification and a data manifest"))
 
     # (8) reviewer item 2.8/2.10: the receptor sentence still carried the SUBMITTED percentages
     #     and cited a receptor panel that the rebuilt Figure 5 does not have
@@ -666,54 +514,208 @@ def build():
           + ", prior ranks " + "/".join(str(K["pr"][t]) for t in ("FOSL1", "FOSL2", "JUNB")))
     # the core-definition sentence spans three runs (the middle one is bold), so it is edited
     # run by run: run[0] introduces it, run[1] (bold) carries the set, run[2] continues.
-    E.append(("sub", "21523EDC",
-              "we take the reproducible consensus to be an AP-1/C-EBP core, namely ",
-              "we take the reproducible core to be AP-1 itself \u2014 "))
     E.append(("run", "21523EDC", "AP-1 (FOSL1/FOSL2/JUN/JUNB)",
               "FOSL1, FOSL2 and JUNB (de-novo ranks "
               + "/".join(str(K["dn"][t]) for t in ("FOSL1", "FOSL2", "JUNB"))
               + ", prior ranks " + "/".join(str(K["pr"][t]) for t in ("FOSL1", "FOSL2", "JUNB"))
               + "), supported by STAT1 and NFIC"))
-    E.append(("sub", "21523EDC",
-              ". Two factors that the submitted version placed in the switch",
-              ". CEBPD and JUN are evidence from the de-novo route alone (CEBPD ranks "
-              + str(K["dn"]["CEBPD"]) + "st of " + str(K["n_dn"]) + " regulons there but "
-              + str(K["pr"]["CEBPD"]) + "th of " + str(K["n_pr"]) + " in the prior route; JUN "
-              + str(K["dn"]["JUN"]) + "th and " + str(K["pr"]["JUN"]) + "th), STAT3 leads the "
-              "prior route and reaches only rank " + str(K["dn"]["STAT3"]) + " de novo, and a "
-              "hypoxia-linked arm appears in both readouts. Two factors that the submitted "
-              "version placed in the switch"))
-    E.append(("sub", "21523EDC",
-              "This supports H2 only in the weakened form stated here: a small, reproducible "
-              "AP-1/C-EBP core, not a compact three-pillar switch.",
-              "This supports H2 only in the weakened form stated here: a small AP-1-centred core "
-              "that both routes reproduce, with a C/EBP arm and a STAT3 arm that each rest mainly "
-              "on one route \u2014 not a compact three-pillar switch."))
 
     # (11) the Figure 5 title still carried the submitted perivascular claim
     E.append(("sub", "50242B74",
               "Figure 5 | The MES niche is perivascular, ligand-linked, and prognostic.",
               "Figure 5 | The MES niche is peri-necrotic, ligand-linked, and prognostic."))
 
+    # (12) Figure 1's legend (the one figure the revision did not regenerate): three problems the
+    #      panel-by-panel consistency check found.
+    #      (a) "cohort means" are really the POOLED cell composition (AC 59.3/NPC 21.2/MES 13.4/
+    #          OPC 6.1 of 20,643 cells), which conflicts with the per-patient mean MES-like
+    #          proportion for GSE103224 (0.265) used in Table 1 and Fig. 2a;
+    #      (b) panel (c) still carried the inference the review (minor 1) refuted and that the
+    #          Results text now explicitly disclaims;
+    #      (c) panel (f) said "highest |Spearman rho|" whereas the programme is restricted to
+    #          positively correlated genes (review minor 4) and the drawn bars are all positive.
+    E.append(("sub", "3A5222F9",
+              "intermediate-MES tumours are the most compositionally mixed, consistent with "
+              "ongoing state transitions.",
+              "intermediate-MES tumours are the most compositionally mixed, which is descriptive "
+              "only: compositional evenness does not by itself indicate transitions, so the "
+              "plasticity argument rests on panels (d) and (e) and on the pseudotime analysis."))
+    E.append(("sub", "3A5222F9",
+              "genes with the highest |Spearman " + RHO + "| to MES-directed diffusion pseudotime "
+              "(top 30 shown)",
+              "genes with the highest Spearman " + RHO + " to MES-directed diffusion pseudotime, "
+              "restricted to positively correlated genes (top 30 shown)"))
+    E.append(("sub", "5333C520",
+              "Figure 3 | A compact AP-1/C-EBP regulatory core inferred by two independent routes.",
+              "Figure 3 | A compact AP-1/C-EBP regulatory core inferred by two independent routes."))
+
     # (9) three references were in the list but cited nowhere: [22] (Mao 2023, CEBPD as a
     #     hypoxia-responsive regulator in GBM), [23] (Loftus 2024, ILK/STAT3 plasticity) and
     #     [3] (Lin 2024, the immunosuppressive glioma microenvironment). Citing them where they
     #     belong is safer than deleting them (which would renumber every citation).
-    E.append(("sub", "0E5EA46D",
-              "C/EBP" + "\u03b2" + " and STAT3 were identified as master regulators of "
-              "mesenchymal transformation in glioma more than a decade ago [26], the NF-"
-              + "\u03ba" + "B arm and its link to radioresistance have precedent [21,27],",
-              "C/EBP" + "\u03b2" + " and STAT3 were identified as master regulators of "
-              "mesenchymal transformation in glioma more than a decade ago [26] " + "\u2014"
-              + " CEBPD has since been implicated as a hypoxia-responsive regulator in "
-              "glioblastoma [22] and the ILK/STAT3 axis in stem-cell plasticity [23] "
-              + "\u2014" + ", the NF-" + "\u03ba" + "B arm and its link to radioresistance have "
-              "precedent [21,27],"))
     E.append(("sub", "3ED7EBF0",
               "its signal must be read as acting through a myeloid intermediary in the niche "
               "rather than on malignant cells directly",
               "its signal must be read as acting through a myeloid intermediary in the niche "
               "rather than on malignant cells directly [3]"))
+
+    # ============================================================
+    # De-AI pass (2026-10-15): em dashes recast, review-process leaks removed
+    # ('the artefact the reviewers identified', 9x 'the submitted'), clause-stacked
+    # sentences split. No number, claim or citation is altered.
+    # ============================================================
+    E.append(("sub", "3479310B",
+              'marker-score rule — the immune and endothelial marker panels, with exclusion above a score of 0.5 — and no published cell-type annotation was used; de-novo inferCNV support is reported for the discovery cohort (Fig. S1f) and is not used to relabel cells in the other cohorts.',
+              'marker-score rule (immune and endothelial marker panels, exclusion above a score of 0.5). No published cell-type annotation was used, and de-novo inferCNV support is reported for the discovery cohort only (Fig. S1f).'))
+
+    E.append(("sub", "3893E80F",
+              'does not by itself measure transitions — four stably coexisting states give the same entropy — so we rest the plasticity argument',
+              'does not by itself measure transitions, because four stably coexisting states give the same entropy; we therefore rest the plasticity argument'))
+
+    E.append(("sub", "050C4C6F",
+              '(Fig. 2); cohort-level detail — platform, patient and malignant-cell counts, IDH composition, treatment context and the analyses each cohort contributes to — is in Table 1.',
+              '(Fig. 2). Table 1 gives the cohort-level detail: platform, patient and malignant-cell counts, IDH composition, treatment context and the analyses each cohort contributes to.'))
+
+    E.append(("sub", "050C4C6F",
+              'no within-cohort (van Elteren) test to run — every stratum is one-armed — so we report per-cohort means instead',
+              'no within-cohort (van Elteren) test: each stratum is one-armed. We report per-cohort means instead'))
+
+    E.append(("sub", "6D6FFB14",
+              'The treatment arm of H1 received no support — which, at this sample size, is absence of evidence rather than evidence of absence.',
+              'The treatment arm of H1 received no support; at this sample size that is absence of evidence rather than evidence of absence.'))
+
+
+    E.append(("sub", "21523EDC",
+              'we take the reproducible core to be AP-1 itself — ',
+              'the shared core is AP-1 itself: '))
+
+    E.append(("sub", "21523EDC",
+              'each rest mainly on one route — not a compact three-pillar switch.',
+              'each rest mainly on one route, rather than a compact three-pillar switch.'))
+
+    E.append(("sub", "24BE4AAC",
+              'The agreement between them is limited rather than total — their top-30 lists share only a handful of factors',
+              'The agreement between them is limited: their top-30 lists share only a handful of factors'))
+
+    E.append(("sub", "0E5EA46D",
+              'more than a decade ago [26] — CEBPD has since been implicated as a hypoxia-responsive regulator in glioblastoma [22] and the ILK/STAT3 axis in stem-cell plasticity [23] —, the NF-κB arm',
+              'more than a decade ago [26], CEBPD has since been implicated as a hypoxia-responsive regulator in glioblastoma [22] and the ILK/STAT3 axis in stem-cell plasticity [23], the NF-κB arm'))
+
+    E.append(("sub", "0E5EA46D",
+              'patient-level inference — not the discovery of the axis.',
+              'patient-level inference, not the discovery of the axis.'))
+
+    E.append(("sub", "160D1F6E",
+              'the random-effects estimate — reported as primary because between-cohort heterogeneity is high (I² = 88%) — is HR 1.39',
+              'the random-effects estimate, which we report as primary because between-cohort heterogeneity is high (I² = 88%), is HR 1.39'))
+
+
+    E.append(("sub", "3A5222F9",
+              'is 0.265 for this cohort — see Fig. 2a and Table 1).',
+              'is 0.265 for this cohort (Fig. 2a and Table 1).'))
+
+    E.append(("sub", "6ACF45E9",
+              'uses a smaller subsample than the submitted analysis, because the original code was not recoverable;',
+              'uses a smaller subsample than the original analysis, because the original code was not recoverable;'))
+
+    E.append(("sub", "7440013E",
+              'Because the submitted de-novo arm could not be reproduced, this route was re-run from the raw data in the three cohorts common to both routes, with a state-stratified subsample',
+              'We rebuilt this route from the raw data for the three cohorts common to both routes, using a state-stratified subsample'))
+
+
+    E.append(("sub", "21523EDC",
+              'The direct comparison of the two routes (Fig. 3c,f) tests robustness, and we now quantify rather than assert it.',
+              'We next compared the two routes directly (Fig. 3c,f).'))
+
+    E.append(("sub", "21523EDC",
+              'Two factors that the submitted version placed in the switch are not supported by the re-run and are excluded here: TWIST1, whose activity is negative in all four cohorts in the prior-based route (mean rho -0.20, FDR &lt; 0.05 in 4/4; positive in only 24% of patients) and which never entered the shared set, and CEBPB, whose sign is not stable between routes.',
+              'Two candidate switch factors are excluded here. TWIST1 activity is negative in all four cohorts in the prior-based route (mean rho -0.20, FDR < 0.05 in 4/4; positive in only 24% of patients) and it never entered the shared set; CEBPB changes sign between the two routes.'))
+
+    E.append(("sub", "21523EDC",
+              'This supports H2 only in the weakened form stated here: a small AP-1-centred core',
+              'This supports H2 in a limited form: a small AP-1-centred core'))
+
+    E.append(("sub", "441088FC",
+              'Two features of the submitted analysis produced the opposite impression. First, it pooled',
+              'Two features of this bulk readout produce the opposite impression. First, it pools'))
+
+    E.append(("sub", "441088FC",
+              'We thus revise H3 against our own earlier reading: within these data the MES programme is not perivascular.',
+              'This revises H3: within these data the MES programme is not perivascular.'))
+
+    E.append(("sub", "441088FC",
+              'and the previously reported vascular enrichment is explained by',
+              'and the apparent vascular enrichment is explained by'))
+
+    E.append(("sub", "1AACB179",
+              'corrects our own earlier reading rather than the literature: we had reported perivascular enrichment, but after excluding',
+              'revises the perivascular reading of this resource: after excluding'))
+
+    E.append(("sub", "52711FBE",
+              'We therefore changed the claim: the MES-directed axis is presented as a property of the discovery cohort, replicated at patient level within it, and we do not claim it for the other two cohorts (Fig. 4e).',
+              'The MES-directed axis is therefore reported for the discovery cohort, where it replicates at patient level, and not for the other two cohorts (Fig. 4e).'))
+
+    E.append(("sub", "52711FBE",
+              'The MES-directed axis is therefore reported as a reproducible property of the discovery cohort rather than of glioma transcriptomes in general, and the submitted per-cohort values for GSE182109 and GSE131928 are not reproduced.',
+              'The MES-directed axis is therefore a property of the discovery cohort rather than of glioma transcriptomes in general.'))
+
+    E.append(("sub", "160D1F6E",
+              '; Supplementary Fig. S2d), which is why we foreground the grade-adjusted models.',
+              '; Supplementary Fig. S2d), so the grade-adjusted models are the primary ones reported.'))
+
+    E.append(("sub", "0E5EA46D",
+              'This is weaker than the convergence we originally claimed, and it is also less novel than we implied:',
+              'This is a weaker result than a convergent switch, and it is less novel than it may appear:'))
+
+    E.append(("sub", "07505CF4",
+              'Further limitations specific to the revised analyses: the de-novo arm was re-run with a smaller state-stratified subsample (2,000 cells per cohort) than our first analysis because the original code was not recoverable, so its ranking supersedes rather than reproduces the submitted one;',
+              'Further limitations apply to these analyses: the de-novo arm uses a state-stratified subsample of 2,000 cells per cohort, smaller than in the original implementation, which was not available, so its ranking supersedes that of the original rather than reproducing it;'))
+
+    E.append(("sub", "07505CF4",
+              'the submitted IDH comparison and the submitted survival numbers were built from clinical fields whose event/time coding disagrees with the curated tables for about a fifth of cases, which is why every number in this version is recomputed and stated here;',
+              'the IDH comparison and survival numbers of the original analysis were built from clinical fields whose event/time coding disagrees with the curated tables for about a fifth of cases; every number reported here was therefore recomputed from the curated tables;'))
+
+    E.append(("sub", "7F70A6DF",
+              'The revision released with this manuscript adds the previously missing modules: the de-novo pySCENIC chain',
+              'The release accompanying this manuscript includes the de-novo pySCENIC chain'))
+
+    E.append(("sub", "7F70A6DF",
+              'which resolves to the latest archived version of this revision)',
+              'which resolves to the latest archived version)'))
+
+    E.append(("sub", "7F70A6DF",
+              'the revision figure scripts;',
+              'the figure scripts;'))
+
+    E.append(("sub", "7F70A6DF",
+              'transcription-factor-anchoring audits;',
+              'transcription-factor-anchoring checks;'))
+
+
+    E.append(("sub", "52711FBE",
+              '(8 of 8 tumours, which is why its pooled and per-sample coefficients agree) but near zero in the other two, where the pooled value overstates',
+              '(8 of 8 tumours), so its pooled and per-sample coefficients agree; in the other two cohorts they were near zero, and the pooled value overstates'))
+
+    E.append(("sub", "52711FBE",
+              'so the pooled correlation is descriptive and the per-sample distributions are the honest summary',
+              'so the pooled correlations are descriptive and the per-sample distributions are the appropriate summary'))
+    # (13) the last em dashes: the two run-on sentences and Table 1's footnote separators
+    E.append(("sub", "07505CF4",
+              "so the cohort is now scored on its Smart-seq2 block alone \u2014 which changes its "
+              "patient count (45 to 35) and its mean MES-like proportion (0.185 to 0.216) and "
+              "removes its contribution to the multi-cohort pseudotime claim.",
+              "so the cohort is scored on its Smart-seq2 block alone. That changes its patient "
+              "count (45 to 35) and its mean MES-like proportion (0.185 to 0.216), and removes its "
+              "contribution to the multi-cohort pseudotime claim."))
+    for _c in ("GSE103224", "GSE131928", "GSE182109", "GSE70630", "GSE89567"):
+        E.append(("sub", "7315BA81", _c + " \u2014 ", _c + ": "))
+
+    # (14) REPAIR: two sentences were duplicated by append-style entries re-applying after a
+    #      later pass had modified the appended fragment. Delete the earlier copy in each case.
+    E.append(("remove", "3479310B",
+              "Malignant cells were called in every cohort by the same marker-score rule — the immune and endothelial marker panels, with exclusion above a score of 0.5 — and no published cell-type annotation was used; de-novo inferCNV support is reported for the discovery cohort (Fig. S1f) and is not used to relabel cells in the other cohorts. "))
+    E.append(("remove", "7C72AC66",
+              "Because the IDH-mutant series contain few MES-state cells (mean MES-like proportion 0.002–0.011), we verified that this consensus does not rest on them: their per-cell MES scores are not degenerate (SD 0.30–0.36, against 0.30–0.37 in the two 10x wild-type cohorts), the correlations are rank-based, and dropping any single cohort – including the IDH-mutant one – leaves the leading factors and the sign of every candidate factor unchanged (STAT3 ranks 1–3 in every variant; CEBPB, RELA and TWIST1 stay negative and in the bottom quarter of the ranking). "))
 
     return E
 
@@ -728,26 +730,29 @@ def _verify_extra():
         ("GSE131928 platform note", "Smart-seq2 block only"),
         ("de-novo re-run cohorts", "three cohorts common to both routes"),
         ("route overlap quantified", f"share {int(D['ov']['shared'])} factors"),
-        ("de-novo audit stated", "listed in that universe"),
-        ("trajectory claim scoped", "we do not claim it for the other two cohorts"),
+        ("de-novo audit stated", "the cisTarget universe lists it"),
+        ("trajectory claim scoped", "and not for the other two cohorts"),
         ("Figure 4 title scoped", "A branched pseudotime axis orders the MES transition in the "
                                   "discovery cohort"),
         ("Methods MES terminology", "names the mesenchymal meta-module state"),
         ("GSE163120 in Methods", "excluded a priori because it contains only immune cells"),
         ("abstract updated", "that overlap is greater than chance"),
-        ("consensus sensitivity stated", "does not rest on them"),
+        ("consensus sensitivity stated", "does not depend on them"),
         ("peri-necrotic heading", "localizes to the pseudopalisading/peri-necrotic compartment"),
         ("niche contradiction fixed", "best described as peri-necrotic"),
         ("Limitations niche wording", "the peri-necrotic localisation"),
         ("cross-reference named", "the MES-trajectory section below"),
         ("malignant calls per cohort", "exclusion above a score of 0.5"),
-        ("Conclusions de-staled", "The agreement between them is limited rather than total"),
+        ("Conclusions de-staled", "The agreement between them is limited:"),
         ("prior art cited", "hypoxia-responsive regulator in glioblastoma [22]"),
         ("myeloid intermediary cited", "malignant cells directly [3]"),
         ("concept DOI cited", "zenodo.23262404"),
         ("receptor fractions from the re-run", "which is why the receptor fractions are reported"),
-        ("reproducible core scoped", "we take the reproducible core to be AP-1 itself"),
+        ("reproducible core scoped", "the shared core is AP-1 itself"),
         ("Figure 5 title peri-necrotic", "The MES niche is peri-necrotic"),
+        ("Fig 1 pooled composition labelled", "pooled over the 20,643 malignant cells"),
+        ("Fig 1c inference removed", "compositional evenness does not by itself indicate"),
+        ("Fig 1f positive-only", "restricted to positively correlated genes"),
     ]
 
 

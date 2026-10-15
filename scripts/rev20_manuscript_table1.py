@@ -151,7 +151,7 @@ def read_rows():
         tbl.append([r["cohort"], r["platform"], r["genotype"], num(r["n_patients"]),
                     num(r["n_malignant_cells"]), num(r["mean_MES_like"], 3),
                     r["treatment_context"]])
-        notes.append(f'{r["cohort"]} — {r["analyses"]}')
+        notes.append(f'{r["cohort"]}: {r["analyses"]}')
     return tbl, notes
 
 

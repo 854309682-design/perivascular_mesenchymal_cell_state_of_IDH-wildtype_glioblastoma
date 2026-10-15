@@ -167,6 +167,22 @@ def main():
                 skipped.append((pid, kind, "already applied"))
                 continue
             p2 = p.replace(runs[j], set_run_text(runs[j], new_text), 1)
+        elif kind == "remove":
+            # delete an exact substring from one run (used to repair duplicated text). Idempotent:
+            # if the text is absent it is treated as already removed and skipped.
+            _, _, text = edit
+            hits = [i for i, r in enumerate(runs) if text in text_of(r)]
+            if not hits:
+                skipped.append((pid, kind, "text already absent"))
+                continue
+            if len(hits) > 1:
+                failed.append((pid, kind, f"text to remove appears in {len(hits)} runs"))
+                continue
+            j = hits[0]
+            if text_of(runs[j]).count(text) > 1:
+                failed.append((pid, kind, "text to remove occurs more than once in the run"))
+                continue
+            p2 = p.replace(runs[j], runs[j].replace(text, "", 1), 1)
         elif kind == "sub":
             _, _, old, new_text = edit
             # check the NEW text FIRST: an append-style replacement (old is a substring of new,
